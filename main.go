@@ -9,7 +9,6 @@ import (
 )
 
 func main() {
-
 	container := wire.InitializeContainer()
 	if cmdErr := console.Run(); cmdErr != nil {
 		container.Log.Error(cmdErr.Error())

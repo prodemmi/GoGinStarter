@@ -6,7 +6,6 @@ app:
   port: 8080
   lang: en
 
-
 db:
   driver: mysql
   dsn: "<username>:<password>@tcp(<host>:<port>)/<database>?tls=skip-verify&autocommit=true&parseTime=true"
