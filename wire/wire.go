@@ -4,15 +4,15 @@
 package wire
 
 import (
-	"GoGinStarter/app/internal/cache"
-	"GoGinStarter/app/internal/config"
-	"GoGinStarter/app/internal/container"
-	"GoGinStarter/app/internal/db"
-	"GoGinStarter/app/internal/event"
-	"GoGinStarter/app/internal/log"
-	"GoGinStarter/app/internal/response"
 	ur "GoGinStarter/app/repositories/user"
 	us "GoGinStarter/app/services/user"
+	"GoGinStarter/internal/cache"
+	"GoGinStarter/internal/config"
+	"GoGinStarter/internal/container"
+	"GoGinStarter/internal/db"
+	"GoGinStarter/internal/event"
+	"GoGinStarter/internal/log"
+	"GoGinStarter/internal/response"
 	"github.com/google/wire"
 )
 
