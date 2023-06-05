@@ -1,0 +1,33 @@
+app:
+  name: "App Name"
+  env: local
+  debug: true
+  url: http://localhost
+  port: 8080
+  lang: en
+
+
+db:
+  driver: mysql
+  dsn: "root:root@tcp(localhost:3306)/go_test?tls=skip-verify&autocommit=true&parseTime=true"
+
+cache:
+  driver: file
+#  database: 0
+#  host: 127.0.0.1
+#  port: 6379
+#  password: null
+
+session:
+  driver: file
+  lifetime: 120
+
+mail:
+  mailer: smtp
+  host: mailplit
+  port: 1025
+  username: null
+  password: null
+  encryption: null
+  from_address: hello@example.com
+  from_name: hello

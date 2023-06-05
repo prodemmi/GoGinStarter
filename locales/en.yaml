@@ -1,0 +1,3 @@
+response:
+  success: "Create successfully"
+  error: "An error occurred"

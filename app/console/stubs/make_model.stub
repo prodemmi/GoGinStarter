@@ -1,0 +1,20 @@
+package models
+
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
+
+type {MODEL_NAME} struct {
+	gorm.Model
+	ID        uint      `json:"id" gorm:"primary_key"`
+    // Add Your Fields Here
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
+	DeletedAt time.Time `json:"deletedAt"`
+}
+
+func (x *{MODEL_NAME}) TableName() string {
+	return "{TABLE_NAME}"
+}
