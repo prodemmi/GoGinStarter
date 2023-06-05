@@ -9,7 +9,7 @@ app:
 
 db:
   driver: mysql
-  dsn: "root:root@tcp(localhost:3306)/go_test?tls=skip-verify&autocommit=true&parseTime=true"
+  dsn: "<username>:<password>@tcp(<host>:<port>)/<database>?tls=skip-verify&autocommit=true&parseTime=true"
 
 cache:
   driver: file
