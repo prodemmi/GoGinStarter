@@ -17,6 +17,7 @@ import (
 	"GoGinStarter/internal/log"
 	"GoGinStarter/internal/response"
 	"GoGinStarter/internal/seeder"
+	"GoGinStarter/internal/session"
 )
 
 // Injectors from wire.go:
@@ -31,6 +32,7 @@ func InitializeContainer() *container.Container {
 	service := user2.ProvideUserService(repository, logLog, cacheCache, dispatcher)
 	responseResponse := response.ProvideResponse()
 	seederSeeder := seeder.ProvideSeeder(gormDB)
-	containerContainer := container.ProvideContainer(service, repository, cacheCache, configConfig, gormDB, responseResponse, logLog, dispatcher, seederSeeder)
+	sessionSession := session.ProvideSession(gormDB)
+	containerContainer := container.ProvideContainer(service, repository, cacheCache, configConfig, gormDB, responseResponse, logLog, dispatcher, seederSeeder, sessionSession)
 	return containerContainer
 }

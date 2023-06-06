@@ -14,6 +14,7 @@ import (
 	"GoGinStarter/internal/log"
 	"GoGinStarter/internal/response"
 	"GoGinStarter/internal/seeder"
+	"GoGinStarter/internal/session"
 	"github.com/google/wire"
 )
 
@@ -25,6 +26,7 @@ func InitializeContainer() *container.Container {
 		log.ProvideLog,
 		cache.ProvideCache,
 		db.ProvideDB,
+		session.ProvideSession,
 		seeder.ProvideSeeder,
 		ur.ProvideUserRepository,
 		us.ProvideUserService,

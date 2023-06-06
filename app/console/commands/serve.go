@@ -4,6 +4,7 @@ import (
 	"GoGinStarter/app/http/routes"
 	"GoGinStarter/internal/container"
 	"fmt"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 	csrf "github.com/utrack/gin-csrf"
@@ -16,8 +17,7 @@ type ServeCommand struct {
 func (s *ServeCommand) RunE(cmd *cobra.Command, args []string) error {
 	router := gin.Default()
 
-	routes.SetupApiRoutes(router, s.container)
-
+	router.Use(sessions.Sessions("mysession", s.container.Session.Store))
 	router.Use(csrf.Middleware(csrf.Options{
 		Secret: "SHsHZ28711587148418",
 		ErrorFunc: func(c *gin.Context) {
@@ -25,6 +25,8 @@ func (s *ServeCommand) RunE(cmd *cobra.Command, args []string) error {
 			c.Abort()
 		},
 	}))
+
+	routes.SetupApiRoutes(router, s.container)
 
 	err := router.Run(fmt.Sprintf(":%v", s.container.Config.App.Port))
 	if err != nil {
