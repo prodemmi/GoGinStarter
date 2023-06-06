@@ -20,13 +20,3 @@ cache:
 session:
   driver: file
   lifetime: 120
-
-mail:
-  mailer: smtp
-  host: mailplit
-  port: 1025
-  username: null
-  password: null
-  encryption: null
-  from_address: hello@example.com
-  from_name: hello
