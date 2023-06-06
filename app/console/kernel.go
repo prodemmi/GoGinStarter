@@ -4,6 +4,7 @@ import (
 	"GoGinStarter/app/console/commands"
 	"GoGinStarter/app/console/commands/make"
 	"GoGinStarter/app/console/commands/migrate"
+	"GoGinStarter/app/console/commands/seed"
 	"GoGinStarter/internal/container"
 	"github.com/spf13/cobra"
 )
@@ -14,6 +15,7 @@ var Commands = []func(container *container.Container) *cobra.Command{
 	(&make.MakeCommand{}).NewCommand,
 	(&migrate.MigrateCommand{}).NewCommand,
 	(&migrate.RollbackCommand{}).NewCommand,
+	(&seed.SeedCommand{}).NewCommand,
 }
 
 var rootCmd = &cobra.Command{}

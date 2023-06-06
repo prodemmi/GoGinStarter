@@ -8,6 +8,7 @@ import (
 	"GoGinStarter/internal/event"
 	"GoGinStarter/internal/log"
 	"GoGinStarter/internal/response"
+	"GoGinStarter/internal/seeder"
 	"gorm.io/gorm"
 )
 
@@ -20,6 +21,7 @@ type Container struct {
 	Response        response.Response
 	Log             log.Log
 	EventDispatcher event.Dispatcher
+	Seeder          seeder.Seeder
 }
 
 func ProvideContainer(
@@ -31,6 +33,7 @@ func ProvideContainer(
 	Response response.Response,
 	Log log.Log,
 	EventDispatcher event.Dispatcher,
+	Seeder seeder.Seeder,
 ) *Container {
 	return &Container{
 		UserService:     UserService,
@@ -41,5 +44,6 @@ func ProvideContainer(
 		Response:        Response,
 		Log:             Log,
 		EventDispatcher: EventDispatcher,
+		Seeder:          Seeder,
 	}
 }
