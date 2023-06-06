@@ -3,20 +3,20 @@ package commands
 import (
 	"GoGinStarter/app/http/routes"
 	"GoGinStarter/internal/container"
-	"GoGinStarter/wire"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 	csrf "github.com/utrack/gin-csrf"
 )
 
-type ServeCommand struct{}
+type ServeCommand struct {
+	container *container.Container
+}
 
 func (s *ServeCommand) RunE(cmd *cobra.Command, args []string) error {
-	container := wire.InitializeContainer()
 	router := gin.Default()
 
-	routes.SetupApiRoutes(router, container)
+	routes.SetupApiRoutes(router, s.container)
 
 	router.Use(csrf.Middleware(csrf.Options{
 		Secret: "SHsHZ28711587148418",
@@ -26,15 +26,16 @@ func (s *ServeCommand) RunE(cmd *cobra.Command, args []string) error {
 		},
 	}))
 
-	err := router.Run(fmt.Sprintf(":%v", container.Config.App.Port))
+	err := router.Run(fmt.Sprintf(":%v", s.container.Config.App.Port))
 	if err != nil {
-		container.Log.Error(err.Error())
+		s.container.Log.Error(err.Error())
 	}
 
 	return nil
 }
 
 func (s *ServeCommand) NewCommand(container *container.Container) *cobra.Command {
+	s.container = container
 	return &cobra.Command{
 		Use:   "serve",
 		Short: "Start the server",
