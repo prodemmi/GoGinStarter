@@ -1,6 +1,7 @@
 package migrate
 
 import (
+	"GoGinStarter/internal/container"
 	"GoGinStarter/internal/migrator"
 	"GoGinStarter/wire"
 	"fmt"
@@ -27,7 +28,7 @@ func (m *MigrateCommand) RunE(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-func (m *MigrateCommand) NewCommand() *cobra.Command {
+func (m *MigrateCommand) NewCommand(container *container.Container) *cobra.Command {
 	migrateCommand := cobra.Command{
 		Use:   "migrate",
 		Short: "Migrate",

@@ -1,6 +1,7 @@
 package make
 
 import (
+	"GoGinStarter/internal/container"
 	"fmt"
 	"github.com/spf13/cobra"
 	"io/ioutil"
@@ -13,7 +14,7 @@ var StubPath = "app/console/stubs/"
 
 type MakeCommand struct{}
 
-func (s *MakeCommand) NewCommand() *cobra.Command {
+func (s *MakeCommand) NewCommand(container *container.Container) *cobra.Command {
 	makeCommand := cobra.Command{
 		Use:   "make",
 		Short: "Make",

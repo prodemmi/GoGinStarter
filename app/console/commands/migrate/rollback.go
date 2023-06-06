@@ -1,6 +1,7 @@
 package migrate
 
 import (
+	"GoGinStarter/internal/container"
 	"GoGinStarter/internal/migrator"
 	"GoGinStarter/wire"
 	"fmt"
@@ -28,7 +29,7 @@ func (m *RollbackCommand) RunE(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-func (m *RollbackCommand) NewCommand() *cobra.Command {
+func (m *RollbackCommand) NewCommand(container *container.Container) *cobra.Command {
 	migrateCommand := cobra.Command{
 		Use:   "rollback",
 		Short: "Rollback migration using migration ID",

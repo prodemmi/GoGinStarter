@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"GoGinStarter/internal/container"
 	"fmt"
 	"github.com/spf13/cobra"
 )
@@ -12,7 +13,7 @@ func (s *HelloWorldCommand) RunE(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-func (s *HelloWorldCommand) NewCommand() *cobra.Command {
+func (s *HelloWorldCommand) NewCommand(container *container.Container) *cobra.Command {
 	return &cobra.Command{
 		Use:   "hello",
 		Short: "Show hello world",

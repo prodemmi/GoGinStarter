@@ -2,6 +2,7 @@ package commands
 
 import (
 	"GoGinStarter/app/http/routes"
+	"GoGinStarter/internal/container"
 	"GoGinStarter/wire"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -24,7 +25,7 @@ func (s *ServeCommand) RunE(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-func (s *ServeCommand) NewCommand() *cobra.Command {
+func (s *ServeCommand) NewCommand(container *container.Container) *cobra.Command {
 	return &cobra.Command{
 		Use:   "serve",
 		Short: "Start the server",
