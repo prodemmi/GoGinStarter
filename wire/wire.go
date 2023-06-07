@@ -13,6 +13,7 @@ import (
 	"GoGinStarter/internal/event"
 	"GoGinStarter/internal/log"
 	"GoGinStarter/internal/response"
+	"GoGinStarter/internal/scheduler"
 	"GoGinStarter/internal/seeder"
 	"GoGinStarter/internal/session"
 	"github.com/google/wire"
@@ -20,6 +21,7 @@ import (
 
 func InitializeContainer() *container.Container {
 	wire.Build(
+		scheduler.ProvideSchedule,
 		event.ProvideDispatcher,
 		response.ProvideResponse,
 		config.ProvideConfig,

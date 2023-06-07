@@ -28,6 +28,11 @@ func (s *ServeCommand) RunE(cmd *cobra.Command, args []string) error {
 
 	routes.SetupApiRoutes(router, s.container)
 
+	_, errScheduler := s.container.Scheduler.Run()
+	if errScheduler != nil {
+		s.container.Log.Error(errScheduler.Error())
+	}
+
 	err := router.Run(fmt.Sprintf(":%v", s.container.Config.App.Port))
 	if err != nil {
 		s.container.Log.Error(err.Error())

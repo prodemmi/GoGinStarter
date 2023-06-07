@@ -16,6 +16,7 @@ import (
 	"GoGinStarter/internal/event"
 	"GoGinStarter/internal/log"
 	"GoGinStarter/internal/response"
+	"GoGinStarter/internal/scheduler"
 	"GoGinStarter/internal/seeder"
 	"GoGinStarter/internal/session"
 )
@@ -33,6 +34,7 @@ func InitializeContainer() *container.Container {
 	responseResponse := response.ProvideResponse()
 	seederSeeder := seeder.ProvideSeeder(gormDB)
 	sessionSession := session.ProvideSession(gormDB)
-	containerContainer := container.ProvideContainer(service, repository, cacheCache, configConfig, gormDB, responseResponse, logLog, dispatcher, seederSeeder, sessionSession)
+	schedule := scheduler.ProvideSchedule()
+	containerContainer := container.ProvideContainer(service, repository, cacheCache, configConfig, gormDB, responseResponse, logLog, dispatcher, seederSeeder, sessionSession, schedule)
 	return containerContainer
 }

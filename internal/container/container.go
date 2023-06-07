@@ -8,6 +8,7 @@ import (
 	"GoGinStarter/internal/event"
 	"GoGinStarter/internal/log"
 	"GoGinStarter/internal/response"
+	"GoGinStarter/internal/scheduler"
 	"GoGinStarter/internal/seeder"
 	"GoGinStarter/internal/session"
 	"gorm.io/gorm"
@@ -24,6 +25,7 @@ type Container struct {
 	EventDispatcher event.Dispatcher
 	Seeder          seeder.Seeder
 	Session         session.Session
+	Scheduler       scheduler.Schedule
 }
 
 func ProvideContainer(
@@ -37,6 +39,7 @@ func ProvideContainer(
 	EventDispatcher event.Dispatcher,
 	Seeder seeder.Seeder,
 	Session session.Session,
+	Scheduler scheduler.Schedule,
 ) *Container {
 	return &Container{
 		UserService:     UserService,
@@ -49,5 +52,6 @@ func ProvideContainer(
 		EventDispatcher: EventDispatcher,
 		Seeder:          Seeder,
 		Session:         Session,
+		Scheduler:       Scheduler,
 	}
 }
