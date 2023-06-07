@@ -5,6 +5,7 @@ app:
   url: http://localhost
   port: 8080
   lang: en
+  maintenance: false
 
 db:
   driver: mysql

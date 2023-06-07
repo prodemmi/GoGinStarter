@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"GoGinStarter/app/http/middlewares"
 	"GoGinStarter/app/http/routes"
 	"GoGinStarter/internal/container"
 	"fmt"
@@ -17,6 +18,7 @@ type ServeCommand struct {
 func (s *ServeCommand) RunE(cmd *cobra.Command, args []string) error {
 	router := gin.Default()
 
+	router.Use(middlewares.MaintenanceMode(s.container.Config))
 	router.Use(sessions.Sessions("mysession", s.container.Session.Store))
 	router.Use(csrf.Middleware(csrf.Options{
 		Secret: "SHsHZ28711587148418",
@@ -28,9 +30,11 @@ func (s *ServeCommand) RunE(cmd *cobra.Command, args []string) error {
 
 	routes.SetupApiRoutes(router, s.container)
 
-	_, errScheduler := s.container.Scheduler.Run()
-	if errScheduler != nil {
-		s.container.Log.Error(errScheduler.Error())
+	if s.container.Config.App.Maintenance == false {
+		_, errScheduler := s.container.Scheduler.Run()
+		if errScheduler != nil {
+			s.container.Log.Error(errScheduler.Error())
+		}
 	}
 
 	err := router.Run(fmt.Sprintf(":%v", s.container.Config.App.Port))

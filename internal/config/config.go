@@ -15,12 +15,13 @@ type Config struct {
 }
 
 type App struct {
-	Name  string `yaml:"name"`
-	Env   string `yaml:"env"`
-	Debug bool   `yaml:"debug"`
-	URL   string `yaml:"url"`
-	Port  int    `yaml:"port"`
-	Lang  string `yaml:"lang"`
+	Name        string `yaml:"name"`
+	Env         string `yaml:"env"`
+	Debug       bool   `yaml:"debug"`
+	URL         string `yaml:"url"`
+	Port        int    `yaml:"port"`
+	Lang        string `yaml:"lang"`
+	Maintenance bool   `yaml:"maintenance"`
 }
 
 type DB struct {
