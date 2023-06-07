@@ -23,7 +23,9 @@ func (s Service) Index(ctx *gin.Context) (*paginator.Paginator, error) {
 	if err != nil {
 		return nil, err
 	}
-	s.eventDispatcher.Dispatch("user.created", nil)
+	//s.eventDispatcher.Dispatch("user.created", nil)
+	//_, _ = notifications.SendExampleSMSNotification(0)
+	//_, _ = notifications.SendExampleEmailNotification(0)
 
 	return paginatedUsers, nil
 }
