@@ -38,6 +38,9 @@ It provides a basic structure and set of features to kickstart your project.
 - Install the dependencies:
 
 ```go mod download```
+- Make yaml config file:
+
+```cp .yaml.example .yaml```
 
 - Serve the web application:
 
