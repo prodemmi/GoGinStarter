@@ -15,6 +15,7 @@ It provides a basic structure and set of features to kickstart your project.
 - Localization
 - Notifications
 - API Responses
+- Authentication with OTP and JWT
 - Scheduling Tasks with [gocron](https://github.com/go-co-op/gocron)
 - Configuration management for yaml files
 - Database migrations and seeders with GORM
