@@ -8,7 +8,6 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
-	csrf "github.com/utrack/gin-csrf"
 )
 
 type ServeCommand struct {
@@ -20,13 +19,13 @@ func (s *ServeCommand) RunE(cmd *cobra.Command, args []string) error {
 
 	router.Use(middlewares.MaintenanceMode(s.container.Config))
 	router.Use(sessions.Sessions("mysession", s.container.Session.Store))
-	router.Use(csrf.Middleware(csrf.Options{
-		Secret: "SHsHZ28711587148418",
-		ErrorFunc: func(c *gin.Context) {
-			c.String(400, "CSRF token mismatch")
-			c.Abort()
-		},
-	}))
+	//router.Use(csrf.Middleware(csrf.Options{
+	//	Secret: "SHsHZ28711587148418",
+	//	ErrorFunc: func(c *gin.Context) {
+	//		c.String(400, "CSRF token mismatch")
+	//		c.Abort()
+	//	},
+	//}))
 
 	routes.SetupApiRoutes(router, s.container)
 

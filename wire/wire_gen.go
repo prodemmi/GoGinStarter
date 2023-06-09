@@ -7,7 +7,9 @@
 package wire
 
 import (
+	"GoGinStarter/app/repositories/otp"
 	"GoGinStarter/app/repositories/user"
+	otp2 "GoGinStarter/app/services/otp"
 	user2 "GoGinStarter/app/services/user"
 	"GoGinStarter/internal/cache"
 	"GoGinStarter/internal/config"
@@ -27,14 +29,16 @@ func InitializeContainer() *container.Container {
 	logLog := log.ProvideLog()
 	configConfig := config.ProvideConfig(logLog)
 	gormDB := db.ProvideDB(configConfig, logLog)
-	repository := user.ProvideUserRepository(gormDB, logLog)
+	repository := otp.ProvideOtpRepository(gormDB, logLog, configConfig)
 	cacheCache := cache.ProvideCache(configConfig, logLog)
 	dispatcher := event.ProvideDispatcher()
-	service := user2.ProvideUserService(repository, logLog, cacheCache, dispatcher)
+	service := otp2.ProvideOTPService(repository, logLog, cacheCache, dispatcher)
+	userRepository := user.ProvideUserRepository(gormDB, logLog)
+	userService := user2.ProvideUserService(userRepository, logLog, cacheCache, dispatcher)
 	responseResponse := response.ProvideResponse()
 	seederSeeder := seeder.ProvideSeeder(gormDB)
 	sessionSession := session.ProvideSession(gormDB)
 	schedule := scheduler.ProvideSchedule()
-	containerContainer := container.ProvideContainer(service, repository, cacheCache, configConfig, gormDB, responseResponse, logLog, dispatcher, seederSeeder, sessionSession, schedule)
+	containerContainer := container.ProvideContainer(service, repository, userService, userRepository, cacheCache, configConfig, gormDB, responseResponse, logLog, dispatcher, seederSeeder, sessionSession, schedule)
 	return containerContainer
 }

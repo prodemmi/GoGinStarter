@@ -34,6 +34,23 @@ func (s Service) FindById(ctx *gin.Context, id int) (*models.User, error) {
 	return s.repository.FindById(ctx, utils.IStoI(ctx.Param("id")))
 }
 
+func (s Service) FirstOrCreate(ctx *gin.Context, mobile string) (*models.User, error) {
+	user, err := s.repository.FirstOrCreate(ctx, mobile)
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+func (s Service) AddRememberToken(ctx *gin.Context, id uint, token string) (*models.User, error) {
+	return s.repository.AddRememberToken(ctx, id, token)
+}
+
+func (s Service) FindByRememberToken(ctx *gin.Context, token string) (*models.User, error) {
+	return s.repository.FindByRememberToken(ctx, token)
+}
+
 func ProvideUserService(
 	Repository user.Repository,
 	Log log.Log,

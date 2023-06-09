@@ -4,7 +4,9 @@
 package wire
 
 import (
+	otpr "GoGinStarter/app/repositories/otp"
 	ur "GoGinStarter/app/repositories/user"
+	otps "GoGinStarter/app/services/otp"
 	us "GoGinStarter/app/services/user"
 	"GoGinStarter/internal/cache"
 	"GoGinStarter/internal/config"
@@ -32,6 +34,8 @@ func InitializeContainer() *container.Container {
 		seeder.ProvideSeeder,
 		ur.ProvideUserRepository,
 		us.ProvideUserService,
+		otpr.ProvideOtpRepository,
+		otps.ProvideOTPService,
 		container.ProvideContainer,
 	)
 
