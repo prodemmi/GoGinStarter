@@ -8,11 +8,19 @@ import (
 )
 
 func SetupApiRoutes(router *gin.Engine, container *container.Container) {
+	OTPApiHandler := api.NewTOPApiHandler(container)
 	userApiHandler := api.NewUserApiHandler(container)
+
+	jwtMiddleware := middlewares.JWT(container.Response, container.Config, container.UserService)
+
 	apiRouter := router.Group("/api/v1", middlewares.RequestLogger(container.Log))
-	{
-		apiRouter.GET("/users", userApiHandler.UsersHandler)
-		apiRouter.GET("/users/:id", userApiHandler.SingleHandler)
-		apiRouter.POST("/users", userApiHandler.StoreHandler)
-	}
+
+	authRouter := apiRouter.Group("/auth")
+	authRouter.POST("/sent-otp", OTPApiHandler.SentHandler)
+	authRouter.POST("/verify-otp", OTPApiHandler.VerifyHandler)
+
+	userRouter := apiRouter.Group("/users", jwtMiddleware)
+	userRouter.GET("/index", userApiHandler.UsersHandler)
+	userRouter.POST("/store", userApiHandler.StoreHandler)
+	userRouter.GET("/:id/single", userApiHandler.SingleHandler)
 }

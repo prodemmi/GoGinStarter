@@ -12,6 +12,9 @@ import (
 type Repository interface {
 	Index(ctx *gin.Context) (*paginator.Paginator, error)
 	FindById(ctx *gin.Context, id int) (*models.User, error)
+	FirstOrCreate(ctx *gin.Context, mobile string) (*models.User, error)
+	AddRememberToken(ctx *gin.Context, id uint, rememberToken string) (*models.User, error)
+	FindByRememberToken(ctx *gin.Context, rememberToken string) (*models.User, error)
 }
 
 type repository struct {
@@ -41,6 +44,35 @@ func (r *repository) FindById(ctx *gin.Context, id int) (*models.User, error) {
 		r.log.Error(err.Error())
 		return nil, err
 	}
+	return &user, nil
+}
+
+func (r *repository) FirstOrCreate(ctx *gin.Context, mobile string) (*models.User, error) {
+	var user models.User
+	if err := r.db.Where("mobile = ?", mobile).FirstOrCreate(&user, models.User{
+		Mobile: mobile,
+	}).Error; err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}
+
+func (r *repository) AddRememberToken(ctx *gin.Context, id uint, rememberToken string) (*models.User, error) {
+	var user models.User
+	if err := r.db.Model(&user).Where("id = ?", id).Update("remember_token", rememberToken).Error; err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}
+
+func (r *repository) FindByRememberToken(ctx *gin.Context, rememberToken string) (*models.User, error) {
+	var user models.User
+	if err := r.db.Where("remember_token = ?", rememberToken).First(&user).Error; err != nil {
+		return nil, err
+	}
+
 	return &user, nil
 }
 

@@ -1,7 +1,9 @@
 package container
 
 import (
+	otpr "GoGinStarter/app/repositories/otp"
 	ur "GoGinStarter/app/repositories/user"
+	otps "GoGinStarter/app/services/otp"
 	us "GoGinStarter/app/services/user"
 	"GoGinStarter/internal/cache"
 	"GoGinStarter/internal/config"
@@ -15,6 +17,8 @@ import (
 )
 
 type Container struct {
+	OTPService      otps.Service
+	OTPRepository   otpr.Repository
 	UserService     us.Service
 	UserRepository  ur.Repository
 	Cache           cache.Cache
@@ -29,6 +33,8 @@ type Container struct {
 }
 
 func ProvideContainer(
+	OTPService otps.Service,
+	OTPRepository otpr.Repository,
 	UserService us.Service,
 	UserRepository ur.Repository,
 	Cache cache.Cache,
@@ -42,6 +48,8 @@ func ProvideContainer(
 	Scheduler scheduler.Schedule,
 ) *Container {
 	return &Container{
+		OTPService:      OTPService,
+		OTPRepository:   OTPRepository,
 		UserService:     UserService,
 		UserRepository:  UserRepository,
 		Cache:           Cache,

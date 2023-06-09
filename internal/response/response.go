@@ -17,7 +17,7 @@ type Response interface {
 	Error(ctx *gin.Context, status int, error string)
 	BadRequest(ctx *gin.Context, error string, data any)
 	NotFound(ctx *gin.Context, error string)
-	Unauthorized(ctx *gin.Context, statusCode int, error string)
+	Unauthorized(ctx *gin.Context, error string)
 	Render(ctx *gin.Context, name string, obj any)
 	WithPaginate(ctx *gin.Context, pagination *paginator.Paginator, message string)
 }
@@ -79,7 +79,7 @@ func (r *response) NotFound(ctx *gin.Context, error string) {
 	r.general(ctx, http.StatusNotFound, false, error, nil, nil)
 }
 
-func (r *response) Unauthorized(ctx *gin.Context, statusCode int, error string) {
+func (r *response) Unauthorized(ctx *gin.Context, error string) {
 	r.general(ctx, http.StatusUnauthorized, false, error, nil, nil)
 }
 

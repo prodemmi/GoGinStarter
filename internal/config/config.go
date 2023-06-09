@@ -12,6 +12,7 @@ type Config struct {
 	Cache   Cache   `yaml:"cache"`
 	Session Session `yaml:"session"`
 	Mail    Mail    `yaml:"mail"`
+	Auth    Auth    `yaml:"auth"`
 }
 
 type App struct {
@@ -51,6 +52,21 @@ type Mail struct {
 	Encryption  string `yaml:"encryption"`
 	FromAddress string `yaml:"from_address"`
 	FromName    string `yaml:"from_name"`
+}
+
+type Auth struct {
+	JWT JWT `yaml:"jwt"`
+	OTP OTP `yaml:"otp"`
+}
+
+type JWT struct {
+	Secret         string `yaml:"secret"`
+	ExpirationTime int    `yaml:"expiration_time"`
+}
+
+type OTP struct {
+	TokenLength    int `yaml:"token_length"`
+	ExpirationTime int `yaml:"expiration_time"`
 }
 
 func ProvideConfig(log log.Log) *Config {
